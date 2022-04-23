@@ -1,28 +1,26 @@
-import dotenv from 'dotenv';
-dotenv.config();
-import express from 'express';   // Import exrepss, a light-weight framework
-import bodyParser from 'body-parser';
-import cors from 'cors';        // Allow cross-origin requests 
-import getFile from './components/excelFile.mjs';
-import getTranslations from './components/getTranslations.mjs';
-import createNewWB from './components/createWB.mjs';
+require('dotenv').config()
+const express = require('express');
+const bodyParser = require('body-parser');
+const cors = require('cors');
+const { getFile } = require('./components/excelFile.js');
+const { getTranslations } = require('./components/getTranslations.js');
+const { createNewWB } = require('./components/createWB.js');
 
 const app = express();
 
 app.use(cors());            // Allow cross-origin requests 
 app.use(bodyParser.json()); // Format data to json
 app.use(bodyParser.urlencoded({ extended: true }))
-//middleware
 
-const PORT = process.env.PORT || 5000;
+const PORT = 5000;
 
 let filepath = '';
 let iso = '';
 
-app.get("/", function(req, res) {
+app.get("/", (req, res) => {
     //when we get an http get request to the root/homepage
-    res.send("Hello World");
-  });
+    res.send("Server running...");
+});
 
 app.post('/api/translate', async (req, res) => {
     filepath = req.body.path;
@@ -30,17 +28,18 @@ app.post('/api/translate', async (req, res) => {
 
     try {
         // read file and return file, text to translate in string, records from excel and
-        const [file, textToTranslate, records, params] = getFile(filepath)
+        // const [file, textToTranslate, records, params] = getFile(filepath)
+        const [file, records, params] = getFile(filepath);
 
         // fetch DeepL for text translations
-        const [translatedTexts, status] = await getTranslations(params, iso)
+       const [translatedTexts, status] = await getTranslations(params, iso, records);
 
         if (status === 200) {
             // create new worksheet in excelfile
             createNewWB(records, translatedTexts, iso, file, filepath)
             res.status(200).send(file)
         } else {
-            res.send("Somethings wrong")
+            res.send("Something's wrong")
         }
     } catch (error) {
         console.error('From server.js: ', error)

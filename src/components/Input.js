@@ -2,12 +2,15 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 
 const Input = () => {
-    const [inputValue, setInputValue] = useState('');
+    const [inputValue, setInputValue] = useState('/Users/jasonwikstrom/Desktop/testing.xlsx');
     const [isoValue, setIsoValue] = useState('DA');
     const [statusMessage, setStatusMessage] = useState();
+    const [isLoading, setIsLoading] = useState(false);
 
     const getTranslations = async (e) => {
         e.preventDefault();
+        setIsLoading(true);
+        setStatusMessage();
 
         if (inputValue.trim() === '') {
             alert('Please enter a filepath');
@@ -24,13 +27,8 @@ const Input = () => {
                 }
             });
             const message = response;
-            if (message.status >= 200 && message.status < 300) {
-                setStatusMessage(message.status)
-                // console.log(message)
-            } else {
-                setStatusMessage(message.status)
-                console.log(message.status, 'something went wrong')
-            }
+            setIsLoading(false);
+            setStatusMessage(message.status)
         } catch (error) {
             console.error('Something went wrong: ', error)
         }
@@ -49,12 +47,14 @@ const Input = () => {
                 <Selections id="lang" name="lang" value={isoValue} onChange={(e) => setIsoValue(e.target.value)}>
                     <option value="DA">Danska</option>
                     <option value="FI">Finska</option>
+                    <option value="PL">Polska</option>
                     <option value="NL">Holländska</option>
                     <option value="EN-US">Engelska</option>
                     <option value="SV">Svenska</option>
                 </Selections>
                 <OKButton>OK</OKButton>
             </form>
+            {isLoading ? <pre>Loading...</pre> : null }
             {statusMessage
                 ? statusMessage >= 200 && statusMessage < 300
                     ? <pre>Went well</pre>

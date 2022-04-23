@@ -6,7 +6,9 @@ const Config = () => {
         <ConfigDiv>
             <Title>Config details</Title>
             <BulletList>Sheetname needs to be 'Blad1'</BulletList>
+            <BulletList>Don't have the excel file open during translation</BulletList>
             <BulletList>Column name needs to be 'Text_SV' for translation from swedish</BulletList>
+            <BulletList>Make sure that no sheets with name 'DA', 'FI', 'PL', 'NL', 'EN-US' or 'SV' exists</BulletList>
         </ConfigDiv>
     )
 }

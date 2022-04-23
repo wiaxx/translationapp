@@ -1,6 +1,6 @@
-import xlsx from 'xlsx';
+const xlsx = require('xlsx');
 
-const createNewWB = (records, texts, iso, file, filepath) => {
+module.exports.createNewWB = (records, texts, iso, file, filepath) => {
     let updated = [];
 
     records.forEach((org, index) => {
@@ -13,5 +13,3 @@ const createNewWB = (records, texts, iso, file, filepath) => {
     xlsx.utils.book_append_sheet(file, newWS, iso)
     xlsx.writeFile(file, filepath)
 }
-
-export default createNewWB;

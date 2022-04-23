@@ -3,7 +3,6 @@ const { app, BrowserWindow } = require('electron');
 const isDev = require('electron-is-dev');
 const url = require('url');
 
-
 // Conditionally include the dev tools installer to load React Dev Tools
 let installExtension, REACT_DEVELOPER_TOOLS;
 
@@ -11,12 +10,12 @@ if (isDev) {
     const devTools = require("electron-devtools-installer");
     installExtension = devTools.default;
     REACT_DEVELOPER_TOOLS = devTools.REACT_DEVELOPER_TOOLS;
-}
+};
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling
 if (require("electron-squirrel-startup")) {
     app.quit();
-}
+};
 
 const createWindow = () => {
 
@@ -25,18 +24,23 @@ const createWindow = () => {
     }
 
     // create browser window
-    const win = new BrowserWindow({
+    const window = new BrowserWindow({
         width: 800,
         height: 600,
+        minWidth: 430,
+        minHeight: 550,
+        center: true,
+        icon: 'banger-copy.png',
+        darkTheme: true,
         webPreferences: {
             nodeIntegration: true,
             // enableRemoteModule: true,
             // preload: path.join(__dirname, "preload.js") // add "preload"
-        }
+        },
     });
 
     // load the index.html file
-    win.loadURL(
+    window.loadURL(
         isDev
             ? 'http://localhost:3000'
             : url.format({
@@ -49,9 +53,9 @@ const createWindow = () => {
 
     // open devtools
     if (isDev) {
-        win.loadURL('http://localhost:3000')
-        win.webContents.once('dom-ready', () => {
-            win.webContents.openDevTools({ mode: 'detach' })
+        window.loadURL('http://localhost:3000')
+        window.webContents.once('dom-ready', () => {
+            window.webContents.openDevTools({ mode: 'detach' })
         })
     }
 }

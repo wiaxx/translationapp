@@ -31,7 +31,7 @@
   },
   "scripts": {
     "cors-server": "node server/server.js",
-    "server-start": "nodemon --watch server --exec babel-node server/server.mjs",
+    "server-start": "nodemon --watch server --exec babel-node server/server.js",
     "dev": "concurrently -k \"BROWSER=none npm start\" \"npm run server-start\" \"npm:electron\" ",
     "electron": "wait-on tcp:3000 && electron-forge start",
     "start": "react-scripts start",
