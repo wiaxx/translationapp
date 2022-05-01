@@ -9,8 +9,8 @@ const { createNewWB } = require('./components/createWB.js');
 const app = express();
 
 app.use(cors());            // Allow cross-origin requests 
-app.use(bodyParser.json()); // Format data to json
-app.use(bodyParser.urlencoded({ extended: true }))
+app.use(bodyParser.json({limit: '128kb'})); // Format data to json
+app.use(bodyParser.urlencoded({ limit: '128kb' , extended: true }))
 
 const PORT = 5000;
 

@@ -28,7 +28,7 @@ module.exports.getFile = (filepath) => {
     let params = {}
     // map the converted excel-json and combine text for translate with param and &
     // records.map(text => textToTranslate += htmlToText(`text = ${text.Text_SV} & `))
-    records.map((text, i) => params = {...params, [i]: htmlToText(text.Text_SV)});
+    records.map((text, i) => params = { ...params, [i]: htmlToText(text.Text_SV, { wordwrap: null }) });
 
     // return [file, textToTranslate, records, params];
     return [file, records, params];
