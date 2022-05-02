@@ -8,7 +8,10 @@ module.exports.getTranslations = async (params, iso, records) => {
     if (records.length > 50) {
         // loop records and create strings of 50 rows/chunks and push to requestStrings
         for (let i = 0; i < records.length; i += 49) {
-            const formParams = records.map(key => encodeURIComponent('text') + '=' + encodeURIComponent(key.Text_SV)).join('&');
+            const chunk = records.slice(i, i + 49)
+            const formParams = chunk.map(key => encodeURIComponent('text') + '=' + encodeURIComponent(key.Text_SV)).join('&');
+
+            // const formParams = records.map(key => encodeURIComponent('text') + '=' + encodeURIComponent(key.Text_SV)).join('&');
             requestStrings.push(formParams)
         }
 
