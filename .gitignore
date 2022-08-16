@@ -7,9 +7,11 @@
 
 # testing
 /coverage
+test.js
 
 # production
 /build
+/out
 
 # misc
 .DS_Store
@@ -22,4 +24,8 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
+#env
 .env
+
+#other
+banger-copy.png
