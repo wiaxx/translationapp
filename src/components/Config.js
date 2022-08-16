@@ -30,7 +30,7 @@ const ConfigDiv = styled.div`
 const ConfigHolder = styled.div`
   margin: auto;
   width: 80vw;
-  font-family: "times";
+  font-family: Times New Roman;
   color: #4d2a19;
   text-align: left;
   // padding-left: 65px;
