@@ -39,7 +39,7 @@ const Input = () => {
   return (
     <>
       <form onSubmit={getTranslations}>
-        <HeaderText>Insert path and translation language:</HeaderText>
+        <HeaderText>Choose file and translation language:</HeaderText>
         <InputField
           type="file"
           placeholder="excel-file path"
@@ -74,31 +74,34 @@ const Input = () => {
 
 const HeaderText = styled.h1`
   font-family: Times New Roman;
+  color: #4d2a19;
 `;
 
 const InputField = styled.input`
   width: 400px;
   height: 30px;
-  font-size: 1.2rem;
   padding: 4px;
-  margin: 5px;
+  margin: 2px;
   border-radius: 5px;
   border: 1px solid grey;
+  text-align-last: center;
+  cursor: pointer;
 `;
 
 const Selections = styled.select`
   height: 30px;
-  font-size: 1.2rem;
+  padding: 4px;
+  margin: 2px;
   border-radius: 5px;
 `;
 
 const OKButton = styled.button`
   height: 30px;
-  font-size: 1.2rem;
+  cursor: pointer;
   border-radius: 5px;
   border: 1px solid grey;
   background-color: white;
-  margin: 5px;
+  margin: 2px;
   &:hover,
   &:focus {
     color: palevioletred;
