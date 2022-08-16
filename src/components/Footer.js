@@ -2,12 +2,12 @@ import React from "react";
 import styled from "styled-components";
 
 const Footer = () => {
-  return <FooterDiv>Footer</FooterDiv>;
+  return <FooterDiv>Bangerhead 2022 / wiaxx</FooterDiv>;
 };
 
 const FooterDiv = styled.div`
   background-color: #afa0bb;
-  height: 15vh;
+  height: 12.5vh;
   display: flex;
   justify-content: center;
   align-items: center;
