@@ -4,7 +4,7 @@ import styled from "styled-components";
 const Header = () => {
   return (
     <HeaderDiv>
-      <Title>Translate</Title>
+      <Title>Banger Translate</Title>
     </HeaderDiv>
   );
 };
