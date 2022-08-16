@@ -48,7 +48,7 @@
     "appId": "com.bangerxdeepl",
     "files": [
       "build/**/**/*",
-      "build-server/**/**/*",
+      "server/**/**/*",
       "node_modules/**/*",
       "electron.js"
     ],

@@ -20,7 +20,7 @@ if (require("electron-squirrel-startup")) {
 const createWindow = () => {
 
     if (!isDev) {
-        require(path.join(__dirname, 'build-server/server.js'));
+        require(path.join(__dirname, 'server/server.js'));
     }
 
     // create browser window
