@@ -13,7 +13,7 @@ const Main = () => {
 };
 
 const MainDiv = styled.div`
-  height: 62vh;
+  height: 55vh;
   background-color: #f8f5f9;
 `;
 
