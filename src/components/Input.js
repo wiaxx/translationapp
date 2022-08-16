@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 
 const Input = () => {
-    const [inputValue, setInputValue] = useState('/Users/jasonwikstrom/Desktop/testing.xlsx');
+    // const [inputValue, setInputValue] = useState('/Users/jasonwikstrom/Desktop/testing.xlsx');
+    const [inputValue, setInputValue] = useState('');
     const [isoValue, setIsoValue] = useState('DA');
     const [statusMessage, setStatusMessage] = useState();
     const [isLoading, setIsLoading] = useState(false);
@@ -15,11 +16,12 @@ const Input = () => {
         if (inputValue.trim() === '') {
             alert('Please enter a filepath');
             setInputValue('');
+            setIsLoading(false);
             return;
         }
 
         try {
-            const response = await fetch('http://localhost:5000/api/translate', {
+                const response = await fetch('http://localhost:5000/api/translate', {
                 method: 'POST',
                 body: JSON.stringify({ path: inputValue, iso: isoValue }),
                 headers: {
@@ -39,10 +41,9 @@ const Input = () => {
             <form onSubmit={getTranslations}>
                 <HeaderText>Insert path and translation language:</HeaderText>
                 <InputField
-                    type="text"
+                    type='file'
                     placeholder="excel-file path"
-                    value={inputValue}
-                    onChange={(e) => setInputValue(e.target.value)}
+                    onChange={(e) => setInputValue(e.target.files[0].path)}
                 />
                 <Selections id="lang" name="lang" value={isoValue} onChange={(e) => setIsoValue(e.target.value)}>
                     <option value="DA">Danska</option>
