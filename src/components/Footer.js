@@ -1,18 +1,19 @@
-import React from "react";
-import styled from "styled-components";
-
-const Footer = () => {
-  return <FooterDiv>Bangerhead 2022 / wiaxx</FooterDiv>;
-};
+import React from 'react';
+import styled from 'styled-components';
 
 const FooterDiv = styled.div`
   background-color: #afa0bb;
-  height: 12.5vh;
+  height: 65px;
+  margin: 5px;
   display: flex;
   justify-content: center;
   align-items: center;
-  box-shadow: -3px -3px 3px lightgrey;
+  border-radius: 8px;
   color: white;
 `;
+
+const Footer = () => {
+  return <FooterDiv>Bangerhead {new Date().getFullYear()} / @wiaxx</FooterDiv>;
+};
 
 export default Footer;
