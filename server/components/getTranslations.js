@@ -1,5 +1,5 @@
-const axios = require("axios").default;
-const { htmlToText } = require("html-to-text");
+const axios = require('axios').default;
+const { htmlToText } = require('html-to-text');
 
 module.exports.getTranslations = async (params, iso, records) => {
   let requestStrings = [];
@@ -13,11 +13,11 @@ module.exports.getTranslations = async (params, iso, records) => {
       const formParams = chunk
         .map(
           (key) =>
-            encodeURIComponent("text") +
-            "=" +
+            encodeURIComponent('text') +
+            '=' +
             encodeURIComponent(htmlToText(key.Text_SV, { wordwrap: null }))
         )
-        .join("&");
+        .join('&');
       requestStrings.push(formParams);
     }
 
@@ -28,26 +28,22 @@ module.exports.getTranslations = async (params, iso, records) => {
       try {
         const response = await axios.post(process.env.BASE_URL, formBody, {
           headers: {
-            Host: "api-free.deepl.com",
-            "Content-Type": "application/x-www-form-urlencoded",
-            "User-Agent": "http://127.0.0.1:5500",
-            Authorization: "DeepL-Auth-Key " + process.env.DEEPL_APIKEY,
+            Host: 'api-free.deepl.com',
+            // Host: 'api.deepl.com',
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'User-Agent': 'http://127.0.0.1:5500',
+            Authorization: 'DeepL-Auth-Key ' + process.env.DEEPL_APIKEY,
           },
         });
 
         if (response.status === 200) {
-          const data = await response.data;
-          const translations = data.translations;
+          const { translations } = await response.data;
           responses.push(translations);
-          console.log("Fetch done!");
-          // return response.status
-          // return [translations, response.status];
-        } else {
-          console.log("Somethings wrong, ", response.status);
-          return response.status;
+          console.log(`Fetch done! ${i} of ${requestStrings.length}`);
         }
       } catch (error) {
-        console.log(error);
+        console.log('getTranslations error: ', error);
+        return [[], error];
       }
     }
 
@@ -60,73 +56,28 @@ module.exports.getTranslations = async (params, iso, records) => {
     const formParams = Object.keys(params)
       .map(
         (key) =>
-          encodeURIComponent("text") + "=" + encodeURIComponent(params[key])
+          encodeURIComponent('text') + '=' + encodeURIComponent(params[key])
       )
-      .join("&");
+      .join('&');
     const formBody = formParams + `&target_lang=${iso}`;
 
     try {
       const response = await axios.post(process.env.BASE_URL, formBody, {
         headers: {
-          Host: "api-free.deepl.com",
-          "Content-Type": "application/x-www-form-urlencoded",
-          "User-Agent": "http://127.0.0.1:5500",
-          Accept: "*/*",
-          Authorization: "DeepL-Auth-Key " + process.env.DEEPL_APIKEY,
+          Host: 'api-free.deepl.com',
+          // Host: 'api.deepl.com',
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'User-Agent': 'http://127.0.0.1:5500',
+          Accept: '*/*',
+          Authorization: 'DeepL-Auth-Key ' + process.env.DEEPL_APIKEY,
         },
       });
 
-      if (response.status === 200) {
-        const data = await response.data;
-        const translations = data.translations;
-        console.log("Fetch done!");
-        return [translations, response.status];
-      } else {
-        console.log("Somethings wrong, ", response.status);
-        return response.status;
-      }
+      const { translations } = await response.data;
+      return [translations, response.status];
     } catch (error) {
-      console.log(error);
+      console.log('getTranslations error: ', error);
+      return [[], error];
     }
   }
-
-  //when using node fetch
-  // const options = {
-  //     method: 'POST',
-  //     headers: {
-  //         "Host": 'api-free.deepl.com',
-  //         "Content-Type": 'application/x-www-form-urlencoded',
-  //         "User-Agent": "http://127.0.0.1:5500",
-  //         "Accept": "*/*",
-  //         "Authorization": "DeepL-Auth-Key " + process.env.DEEPL_APIKEY,
-  //     },
-  //     body: formBody
-  // }
-  // const uri = `https://api-free.deepl.com/v2/translate`;
-
-  // try {
-  //     // const response = await fetch(process.env.BASE_URL, options)
-  //     const response = await axios.post(process.env.BASE_URL, formBody, {
-  //         headers: {
-  //             "Host": 'api-free.deepl.com',
-  //             "Content-Type": 'application/x-www-form-urlencoded',
-  //             "User-Agent": "http://127.0.0.1:5500",
-  //             "Accept": "*/*",
-  //             "Authorization": "DeepL-Auth-Key " + process.env.DEEPL_APIKEY,
-  //         }
-  //     })
-
-  //     if (response.status === 200) {
-  //         const data = await response.data //.json()
-  //         const translations = data.translations
-  //         console.log('Fetch done!')
-  //         return [translations, response.status];
-  //     } else {
-  //         console.log('Somethings wrong, ', response.status)
-  //         return response.status;
-  //     }
-  //     // createNewWB(translations, iso);
-  // } catch (error) {
-  //     console.log(error);
-  // }
 };
