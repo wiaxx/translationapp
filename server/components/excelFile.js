@@ -1,5 +1,5 @@
-const xlsx = require("xlsx");
-const { htmlToText } = require("html-to-text");
+const xlsx = require('xlsx');
+const { htmlToText } = require('html-to-text');
 
 module.exports.getFile = (filepath) => {
   // get excel-file to read from, filepath from user

@@ -42,7 +42,9 @@ const Config = () => {
         <summary>
           <Title>Config details</Title>
         </summary>
-        <BulletList>The text to translate need to be in the first sheet in workbook</BulletList>
+        <BulletList>
+          The text to translate need to be in the first sheet in workbook
+        </BulletList>
         <BulletList>
           Don't have the excel file open during translation
         </BulletList>
@@ -50,10 +52,8 @@ const Config = () => {
           Column name needs to be 'Text_SV' for translation from swedish
         </BulletList>
         <BulletList>
-          Make sure that no sheets with name in following list exists:
-          <BulletList>
-            'DA', 'EN-US', 'FI', FR, 'NL', 'NB', 'PL', 'SV'
-          </BulletList>
+          Make sure that no sheets with name in following list exists: <br></br>
+          'DA', 'EN-US', 'FI', 'FR', 'NL', 'NB', 'PL', 'SV'
         </BulletList>
       </details>
     </ConfigHolder>
