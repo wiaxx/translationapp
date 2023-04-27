@@ -42,7 +42,7 @@ const Config = () => {
         <summary>
           <Title>Config details</Title>
         </summary>
-        <BulletList>Sheetname needs to be 'Blad1'</BulletList>
+        <BulletList>The text to translate need to be in the first sheet in workbook</BulletList>
         <BulletList>
           Don't have the excel file open during translation
         </BulletList>
