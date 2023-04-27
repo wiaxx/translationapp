@@ -86,6 +86,7 @@ const Input = () => {
       <form onSubmit={getTranslations}>
         <InputField
           type="file"
+          accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
           placeholder="excel-file path"
           onChange={(e) => setInputValue(e.target.files[0].path)}
         />
