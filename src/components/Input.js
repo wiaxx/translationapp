@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css';
 
 const InputHolder = styled.div`
   margin: 10px auto;
@@ -46,17 +48,48 @@ const OKButton = styled.button`
   }
 `;
 
+const LoadingDiv = styled.div`
+  width: 80%;
+  border-radius: 8px;
+  margin: 25px auto 0 auto;
+  padding: 10px;
+`;
+
+const MessageText = styled.div`
+  width: 80%;
+  border-radius: 8px;
+  margin: 25px auto 0 auto;
+  padding: 10px;
+  background-color: #bdebba;
+  color: #003700;
+  font-weight: bold;
+`;
+
+const ErrorTest = styled.div`
+  width: 80%;
+  border-radius: 8px;
+  margin: 25px auto 0 auto;
+  padding: 10px;
+  background-color: #ff2536;
+  color: white;
+  font-weight: bold;
+`;
+
 const Input = () => {
-  // const [inputValue, setInputValue] = useState('/Users/jasonwikstrom/Desktop/testing.xlsx');
   const [inputValue, setInputValue] = useState('');
-  const [isoValue, setIsoValue] = useState('DA');
-  const [statusMessage, setStatusMessage] = useState();
+  const [isoValue, setIsoValue] = useState('');
+  const [statusCode, setStatusCode] = useState();
+  const [responseMessage, setResponseMessage] = useState();
+  const [error, setError] = useState();
   const [isLoading, setIsLoading] = useState(false);
 
   const getTranslations = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-    setStatusMessage();
+    setStatusCode();
+    setResponseMessage();
+    setError();
+    setResponseMessage();
 
     if (inputValue.trim() === '') {
       alert('Please enter a filepath');
@@ -73,9 +106,13 @@ const Input = () => {
           'Content-Type': 'application/json',
         },
       });
-      const message = response;
+      const data = response;
+      const { message, error } = await data.json();
+
+      setStatusCode(data.status);
+      setResponseMessage(message);
+      setError(error);
       setIsLoading(false);
-      setStatusMessage(message.status);
     } catch (error) {
       console.error('Something went wrong: ', error);
     }
@@ -95,7 +132,11 @@ const Input = () => {
           name="lang"
           value={isoValue}
           onChange={(e) => setIsoValue(e.target.value)}
+          required
         >
+          <option disabled value="">
+            -- select an option --
+          </option>
           <option value="DA">Danska</option>
           <option value="EN-US">Engelska</option>
           <option value="FI">Finska</option>
@@ -108,14 +149,13 @@ const Input = () => {
         <OKButton>OK</OKButton>
       </form>
 
-      {isLoading ? <pre>Loading...</pre> : null}
-      {statusMessage ? (
-        statusMessage >= 200 && statusMessage < 300 ? (
-          <pre>Went well</pre>
-        ) : (
-          <pre>Someting went wrong</pre>
-        )
+      {isLoading ? (
+        <LoadingDiv>
+          <Skeleton height="2rem" />
+        </LoadingDiv>
       ) : null}
+      {responseMessage ? <MessageText>{responseMessage}</MessageText> : null}
+      {error ? <ErrorTest>{error}</ErrorTest> : null}
     </InputHolder>
   );
 };
