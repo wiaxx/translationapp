@@ -11,6 +11,8 @@ test.js
 
 # production
 /build
+/build-server
+/dist
 /out
 
 # misc
@@ -29,3 +31,8 @@ yarn-error.log*
 
 #other
 banger-copy.png
+
+#docker test
+.dockerignore
+docker-compose.yml
+Dockerfile

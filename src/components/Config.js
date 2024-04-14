@@ -53,7 +53,7 @@ const Config = () => {
         </BulletList>
         <BulletList>
           Make sure that no sheets with name in following list exists: <br></br>
-          'DA', 'EN-US', 'FI', 'FR', 'NL', 'NB', 'PL', 'SV'
+          'DA', 'EN-US', 'FI', 'FR', 'EL', 'NL', 'IT', 'NB', 'PL', 'PT-PT', 'ES', 'SV', 'DE', 'HU' 
         </BulletList>
       </details>
     </ConfigHolder>

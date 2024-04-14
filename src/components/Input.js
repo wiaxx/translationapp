@@ -109,12 +109,14 @@ const Input = () => {
       const data = response;
       const { message, error } = await data.json();
 
-      setStatusCode(data.status);
+      setStatusCode(data?.status);
       setResponseMessage(message);
       setError(error);
       setIsLoading(false);
     } catch (error) {
       console.error('Something went wrong: ', error);
+      setIsLoading(false);
+      setError(error);
     }
   };
 
@@ -141,10 +143,16 @@ const Input = () => {
           <option value="EN-US">Engelska</option>
           <option value="FI">Finska</option>
           <option value="FR">Franska</option>
+          <option value="EL">Grekiska</option>
           <option value="NL">Holländska</option>
+          <option value="IT">Italienska</option>
           <option value="NB">Norska</option>
           <option value="PL">Polska</option>
+          <option value="PT-PT">Portugisiska</option>
+          <option value="ES">Spanska</option>
           <option value="SV">Svenska</option>
+          <option value="DE">Tyska</option>
+          <option value="HU">Ungerska</option>
         </Selections>
         <OKButton>OK</OKButton>
       </form>

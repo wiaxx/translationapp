@@ -40,9 +40,9 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "package": "react-scripts build && electron-forge package",
-    "make": "react-scripts build && electron-forge make",
+    "make": "react-scripts build && electron-forge make --platform win32",
     "server-build": "babel server --out-dir build-server",
-    "electron-pack": "electron-builder -c.extraMetadata.main='./electron.js'",
+    "electron-pack": "react-scripts build && electron-builder -w -c.extraMetadata.main='./electron.js'",
     "preelectron-pack": "npm run build && npm run server-build"
   },
   "build": {
@@ -51,12 +51,19 @@
       "build/**/**/*",
       "server/**/**/*",
       "node_modules/**/*",
-      "electron.js"
+      "electron.js",
+      ".env"
     ],
     "directories": {
       "buildResources": "assets"
     },
-    "icon": "src/icons/mac/icon.icns"
+    "icon": "src/icons/win/icon.ico",
+    "mac": {
+      "target": "dmg"
+    },
+    "win": {
+      "target": "nsis"
+    }
   },
   "eslintConfig": {
     "extends": [
@@ -95,13 +102,14 @@
   "config": {
     "forge": {
       "packagerConfig": {
-        "icon": "src/icons/mac/icon.icns",
+        "icon": "src/icons/win/icon.ico",
         "name": "Bangerhead x DeepL Translation App"
       },
       "makers": [
         {
           "name": "@electron-forge/maker-squirrel",
           "config": {
+            "authors": "Amanda Wikström",
             "certificateFile": "./cert.pfx",
             "certificatePassword": "this-is-a-secret",
             "name": "translationapp"
